@@ -22,7 +22,13 @@ export default function Tools({navigation}) {
           <TouchableOpacity
             key={index}
             style={styles.card}
-            onPress={() => navigation.navigate('Detail', {card})}>
+            onPress={() => {
+              if (card.title === 'BMI') {
+                navigation.navigate('BMI');
+              } else {
+                navigation.navigate('Detail', {card});
+              }
+            }}>
             <Text style={styles.cardTitle}>{card.title}</Text>
             <Text style={styles.cardContent}>{card.content}</Text>
           </TouchableOpacity>

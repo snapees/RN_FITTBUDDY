@@ -20,9 +20,6 @@ const ThemeContext = createContext<ThemeContextType>({
   toggleColorScheme: () => {},
 });
 
-// Define the custom hook
-export const useTheme = () => useContext(ThemeContext);
-
 // Create the theme provider component
 export default function ThemeProvider({children}: PropsWithChildren) {
   const [colorScheme, setColorScheme] = useState<ColorSchemeName>(
@@ -49,3 +46,6 @@ export default function ThemeProvider({children}: PropsWithChildren) {
     </ThemeContext.Provider>
   );
 }
+
+// Define the custom hook
+export const useTheme = () => useContext(ThemeContext);

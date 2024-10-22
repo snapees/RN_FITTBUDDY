@@ -19,6 +19,7 @@ import Tools from './src/screens/Tools';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import DetailScreen from './src/screens/DetailScreen';
+import BMIScreen from './src/screens/BMIScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -119,6 +120,7 @@ function AuthenticatedStack() {
         }}
       /> */}
       <Stack.Screen name="Tab" component={TabNavigator} />
+      <Stack.Screen name="BMI" component={BMIScreen} />
       <Stack.Screen name="Detail" component={DetailScreen} />
     </Stack.Navigator>
   );
