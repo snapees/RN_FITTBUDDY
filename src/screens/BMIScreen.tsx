@@ -1,5 +1,6 @@
 import {
   Alert,
+  ColorSchemeName,
   StyleSheet,
   Text,
   TextInput,
@@ -7,13 +8,22 @@ import {
   View,
 } from 'react-native';
 import React, {useState} from 'react';
-import {currentTheme} from '../constants/theme';
+import {useTheme} from '../hooks/useTheme';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {StackNavigationProp} from '@react-navigation/stack';
 
-export default function BMIScreen({navigation}) {
+type BMIScreenProps = {
+  navigation: StackNavigationProp<any>;
+};
+
+export default function BMIScreen({navigation}: BMIScreenProps) {
   const [weight, setWeight] = useState('');
   const [height, setHeight] = useState('');
   const [bmi, setBmi] = useState('');
   const [result, setResult] = useState('');
+
+  const {colorScheme} = useTheme();
+  const styles = getStyles(colorScheme);
 
   const calculateBmi = () => {
     if (weight !== '' && height !== '') {
@@ -32,139 +42,157 @@ export default function BMIScreen({navigation}) {
       Alert.alert('Please enter both weight and height');
     }
   };
+
   return (
-    <View
-      style={[
-        styles.detailContainer,
-        {backgroundColor: currentTheme.backgroundColor},
-      ]}>
-      <Text style={[styles.detailTitle, {color: currentTheme.textColor}]}>
-        Body Mass Index (BMI)
-      </Text>
-      <Text style={[styles.detailContent, {color: currentTheme.textColor}]}>
+    <View style={[styles.detailContainer]}>
+      <View style={styles.headerContainer}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Ionicons
+            name="chevron-back"
+            size={28}
+            color={colorScheme === 'light' ? '#000' : '#fff'}
+          />
+        </TouchableOpacity>
+        <Text style={[styles.detailTitle]}>BMI</Text>
+      </View>
+      <Text style={[styles.detailContent]}>
         Body Mass Index (BMI) is a measure of body fat based on height and
         weight that applies to adult men and women. A BMI of 18.5 to 24.9 is
         considered normal weight. It’s a useful tool for assessing whether a
         person has a healthy body weight for a given height.
       </Text>
       <View style={styles.inputContainer}>
-        <Text style={[styles.label, {color: currentTheme.textColor}]}>
-          Weight (kg)
-        </Text>
+        <Text style={[styles.label]}>Weight (kg)</Text>
         <TextInput
-          style={[styles.input, {borderColor: currentTheme.secondaryColor}]}
+          style={[styles.input]}
           value={weight}
           onChangeText={text => setWeight(text)}
           keyboardType="numeric"
         />
       </View>
       <View style={styles.inputContainer}>
-        <Text style={[styles.label, {color: currentTheme.textColor}]}>
-          Height (cm)
-        </Text>
+        <Text style={[styles.label]}>Height (cm)</Text>
         <TextInput
-          style={[styles.input, {borderColor: currentTheme.secondaryColor}]}
+          style={[styles.input]}
           value={height}
           onChangeText={text => setHeight(text)}
           keyboardType="numeric"
         />
       </View>
-      <TouchableOpacity
-        style={[styles.button, {backgroundColor: currentTheme.buttonColor}]}
-        onPress={calculateBmi}>
+      <TouchableOpacity style={[styles.button]} onPress={calculateBmi}>
         <Text style={styles.buttonText}>Calculate BMI</Text>
       </TouchableOpacity>
       {bmi !== '' && (
         <View style={styles.resultContainer}>
-          <Text style={[styles.resultTitle, {color: currentTheme.textColor}]}>
-            Your BMI is: {bmi}
-          </Text>
-          <Text style={[styles.resultText, {color: currentTheme.textColor}]}>
-            {result}
-          </Text>
+          <Text style={[styles.resultTitle]}>Your BMI is: {bmi}</Text>
+          <Text style={[styles.resultText]}>{result}</Text>
         </View>
       )}
-      <TouchableOpacity
-        style={[styles.backButton, {backgroundColor: currentTheme.buttonColor}]}
+
+      {/* <TouchableOpacity
+        style={[styles.backButton]}
         onPress={() => navigation.goBack()}>
-        <Text
-          style={[
-            styles.backButtonText,
-            {color: currentTheme.buttonTextColor},
-          ]}>
-          Go Back
-        </Text>
-      </TouchableOpacity>
+        <Text style={[styles.backButtonText]}>Go Back</Text>
+      </TouchableOpacity> */}
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  detailContainer: {
-    flex: 1,
-    padding: 20,
-    // backgroundColor: '#f0f0f0',
-    // justifyContent: 'center',
-  },
-  detailTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    textAlign: 'center',
-    // color: '#333',
-  },
-  inputContainer: {
-    marginBottom: 20,
-  },
-  label: {
-    fontSize: 16,
-    marginBottom: 5,
-    // color: '#666',
-  },
-  input: {
-    height: 40,
-    // borderColor: '#ccc',
-    borderWidth: 1,
-    paddingHorizontal: 10,
-  },
-  button: {
-    // backgroundColor: '#007BFF',
-    padding: 10,
-    borderRadius: 5,
-    alignItems: 'center',
-  },
-  buttonText: {
-    // color: '#fff',
-    fontSize: 16,
-  },
-  resultContainer: {
-    marginTop: 20,
-  },
-  resultTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 5,
-    // color: '#333',
-  },
-  resultText: {
-    fontSize: 16,
-    // color: '#666',
-  },
-  detailContent: {
-    fontSize: 16,
-    lineHeight: 24,
-    textAlign: 'justify',
-    // color: '#666',
-    marginBottom: 20,
-  },
-  backButton: {
-    // backgroundColor: '#007BFF',
-    padding: 10,
-    borderRadius: 5,
-    alignItems: 'center',
-  },
-  backButtonText: {
-    // color: '#fff',
-    fontSize: 16,
-  },
-});
+const getStyles = (colorScheme: ColorSchemeName) =>
+  StyleSheet.create({
+    detailContainer: {
+      flex: 1,
+      padding: 20,
+      backgroundColor: colorScheme === 'light' ? '#eee' : '#aaa',
+      // justifyContent: 'center',
+    },
+    detailTitle: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      color: colorScheme === 'light' ? '#000' : '#fff',
+      marginLeft: 10,
+    },
+    headerContainer: {
+      flexDirection: 'row',
+      alignItems: 'center', // Align items vertically centered
+      marginBottom: 10,
+    },
+    inputContainer: {
+      marginBottom: 20,
+    },
+    label: {
+      fontSize: 16,
+      marginBottom: 5,
+      // color: '#000',
+      color: colorScheme === 'light' ? '#333' : '#fff',
+    },
+    input: {
+      height: 40,
+      // borderColor: '#ccc',
+      borderWidth: 1,
+      paddingHorizontal: 10,
+      borderRadius: 25,
+      borderColor: colorScheme === 'light' ? '#ccc' : '#ddd',
+    },
+    button: {
+      backgroundColor: '#228800',
+      padding: 10,
+      borderRadius: 20,
+      alignItems: 'center',
+      width: '50%',
+      marginHorizontal: 100,
+    },
+    buttonText: {
+      color: '#fff',
+      fontSize: 16,
+    },
+    resultContainer: {
+      marginTop: 20,
+    },
+    // resultFullScreen: {
+    //   flex: 1,
+    //   justifyContent: 'center',
+    //   alignItems: 'center',
+    //   backgroundColor: colorScheme === 'light' ? '#fff' : '#333',
+    //   padding: 20,
+    // },
+    resultTitle: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      marginBottom: 5,
+      color: '#333',
+    },
+    resultText: {
+      fontSize: 16,
+      color: '#666',
+    },
+    // resetButton: {
+    //   backgroundColor: '#ff5722',
+    //   padding: 10,
+    //   borderRadius: 20,
+    //   alignItems: 'center',
+    //   width: '50%',
+    // },
+    // resetButtonText: {
+    //   color: '#fff',
+    //   fontSize: 16,
+    // },
+    detailContent: {
+      fontSize: 16,
+      lineHeight: 24,
+      textAlign: 'justify',
+      color: colorScheme === 'light' ? '#666' : '#eee',
+      marginBottom: 20,
+    },
+    // backButton: {
+    //   backgroundColor: '#228800',
+    //   padding: 10,
+    //   borderRadius: 5,
+    //   alignItems: 'center',
+    // },
+    // backButtonText: {
+    //   color: '#fff',
+    //   fontSize: 16,
+    // },
+  });

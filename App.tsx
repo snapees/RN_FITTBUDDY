@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/no-unstable-nested-components */
 import {StatusBar, useColorScheme} from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
@@ -59,12 +61,14 @@ function TabNavigator() {
             iconName = focused ? 'home' : 'home';
           } else if (route.name === 'Profile') {
             iconName = focused ? 'people' : 'people';
+          } else {
+            iconName = 'home'; // Provide a default icon name
           }
 
           // You can return any component that you like here!
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: 'tomato',
+        tabBarActiveTintColor: '#228800',
         tabBarInactiveTintColor: 'gray',
       })}>
       <Tab.Screen name="Home" component={WelcomeScreen} />
