@@ -30,23 +30,26 @@ export default function Tools({navigation}: ToolsProps) {
   const {colorScheme} = useTheme();
   const styles = getStyles(colorScheme);
   return (
-    <View style={styles.container}>
-      <View style={styles.cardContainer}>
-        {cardData.map((card, index) => (
-          <TouchableOpacity
-            key={index}
-            style={styles.card}
-            onPress={() => {
-              if (card.title === 'BMI') {
-                navigation.navigate('BMI');
-              } else {
-                navigation.navigate('Detail', {card});
-              }
-            }}>
-            <Text style={styles.cardTitle}>{card.title}</Text>
-            <Text style={styles.cardContent}>{card.content}</Text>
-          </TouchableOpacity>
-        ))}
+    <View style={styles.mainContainer}>
+      <Text style={styles.mainTitle}>Tools</Text>
+      <View style={styles.flexContainer}>
+        <View style={styles.cardContainer}>
+          {cardData.map((card, index) => (
+            <TouchableOpacity
+              key={index}
+              style={styles.card}
+              onPress={() => {
+                if (card.title === 'BMI') {
+                  navigation.navigate('BMI');
+                } else {
+                  navigation.navigate('Detail', {card});
+                }
+              }}>
+              <Text style={styles.cardTitle}>{card.title}</Text>
+              <Text style={styles.cardContent}>{card.content}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
       </View>
     </View>
   );
@@ -54,14 +57,24 @@ export default function Tools({navigation}: ToolsProps) {
 
 const getStyles = (colorScheme: ColorSchemeName) =>
   StyleSheet.create({
-    container: {
+    mainContainer: {
+      flex: 1,
+      backgroundColor: colorScheme === 'light' ? '#eee' : '#777',
+    },
+    mainTitle: {
+      fontSize: 24,
+      color: colorScheme === 'dark' ? '#fff' : '#000',
+      margin: 10,
+      fontWeight: 'bold',
+    },
+    flexContainer: {
       flex: 1,
       flexDirection: 'row',
       gap: 15,
       justifyContent: 'center',
       // alignItems: 'center',
       padding: 16,
-      backgroundColor: colorScheme === 'light' ? '#eee' : '#aaa',
+      // backgroundColor: colorScheme === 'light' ? '#eee' : '#aaa',
     },
     cardContainer: {
       flexDirection: 'row',
@@ -71,11 +84,11 @@ const getStyles = (colorScheme: ColorSchemeName) =>
     card: {
       flexDirection: 'column',
       // backgroundColor: '#fff',
-      backgroundColor: colorScheme === 'light' ? '#fff' : '#ddd',
+      backgroundColor: colorScheme === 'light' ? '#fff' : '#aaa',
       borderRadius: 8,
       padding: 16,
       marginVertical: 8,
-      elevation: 3, // For Android shadow
+      elevation: 6, // For Android shadow
       shadowColor: '#000', // For iOS shadow
       shadowOffset: {width: 0, height: 2},
       shadowOpacity: 0.2,
@@ -86,9 +99,11 @@ const getStyles = (colorScheme: ColorSchemeName) =>
     cardTitle: {
       fontSize: 20,
       fontWeight: 'bold',
+      color: colorScheme === 'dark' ? '#fff' : '#000',
     },
     cardContent: {
       fontSize: 16,
       marginTop: 8,
+      color: colorScheme === 'dark' ? '#fff' : '#000',
     },
   });

@@ -18,7 +18,7 @@ const getStyles = (colorScheme: ColorSchemeName) =>
       flex: 1,
       // justifyContent: 'center',
       // alignItems: 'center',
-      backgroundColor: colorScheme === 'light' ? '#eee' : '#aaa',
+      backgroundColor: colorScheme === 'light' ? '#eee' : '#777',
     },
     text: {
       fontSize: 24,

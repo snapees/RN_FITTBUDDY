@@ -11,7 +11,7 @@ import AuthContextProvider, {
 } from './src/store/context/auth-context';
 import {NavigationContainer} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import ThemeProvider from './src/hooks/useTheme';
+import ThemeProvider, {useTheme} from './src/hooks/useTheme';
 import LoginScreen from './src/screens/LoginScreen';
 import SignupScreen from './src/screens/SignupScreen';
 import WelcomeScreen from './src/screens/WelcomeScreen';
@@ -50,10 +50,11 @@ function AuthStack() {
 function TabNavigator() {
   // const username = userProfile.userName;
   // const email = userProfile.email;
+  const {colorScheme} = useTheme();
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
-        // headerShown: false,
+        headerShown: false,
         tabBarIcon: ({focused, color, size}) => {
           let iconName;
 
@@ -70,6 +71,14 @@ function TabNavigator() {
         },
         tabBarActiveTintColor: '#228800',
         tabBarInactiveTintColor: 'gray',
+        tabBarStyle: {
+          // paddingHorizontal: 5,
+          // paddingTop: 0,
+          // backgroundColor: 'rgba(34,36,40,1)',
+          backgroundColor: colorScheme === 'dark' ? '#000' : '#fff',
+          // position: 'absolute',
+          // borderTopWidth: 0,
+        },
       })}>
       <Tab.Screen name="Home" component={WelcomeScreen} />
       <Tab.Screen
