@@ -22,6 +22,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import DetailScreen from './src/screens/DetailScreen';
 import BMIScreen from './src/screens/BMIScreen';
+import Exercise from './src/screens/Exercise';
+import ExerciseDeatail from './src/screens/ExerciseDeatail';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -135,6 +137,8 @@ function AuthenticatedStack() {
       <Stack.Screen name="Tab" component={TabNavigator} />
       <Stack.Screen name="BMI" component={BMIScreen} />
       <Stack.Screen name="Detail" component={DetailScreen} />
+      <Stack.Screen name="Exercise" component={Exercise} />
+      <Stack.Screen name="ExerciseDetail" component={ExerciseDeatail} />
     </Stack.Navigator>
   );
 }

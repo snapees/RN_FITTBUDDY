@@ -10,10 +10,13 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ImageSlider from '../components/UI/ImageSlider';
 import BodyParts from '../components/UI/BodyParts';
+import {useNavigation} from '@react-navigation/native';
 
 export default function WelcomeScreen() {
   const {colorScheme} = useTheme();
   const styles = getStyles(colorScheme);
+
+  const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.container}>
       {/* punchline and avatar */}
@@ -48,7 +51,7 @@ export default function WelcomeScreen() {
 
       {/* body parts */}
       <View style={styles.bodyParts}>
-        <BodyParts />
+        <BodyParts navigation={navigation} />
       </View>
     </SafeAreaView>
   );
