@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
 import {
   Image,
   StatusBar,
@@ -10,18 +9,16 @@ import {
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
-// import {useRoute} from '@react-navigation/native';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {fetchExercisesByBodyPart} from '../api/exerciseDB';
-import {dummtexercises} from '../constants/data';
 import ExerciseList from '../components/UI/ExerciseList';
 import {ScrollView} from 'react-native-virtualized-view';
 
-export default function ExerciseDetail({route}) {
+export default function ExerciseDetail({route}: any) {
   const navigation = useNavigation();
   const {item} = route.params;
   // console.log(item);
@@ -33,7 +30,7 @@ export default function ExerciseDetail({route}) {
     }
   }, []);
 
-  const getExercises = async bodyPart => {
+  const getExercises = async ({bodyPart}: any) => {
     let data = await fetchExercisesByBodyPart(bodyPart);
     // console.log('got data: ', data);
     setExercises(data);
@@ -42,7 +39,7 @@ export default function ExerciseDetail({route}) {
   return (
     <ScrollView style={styles.container}>
       {/* <Text>Exercise Detail for {item.name}</Text> */}
-      <StatusBar style="light" />
+      <StatusBar barStyle={'light-content'} />
       <Image source={item.image} style={styles.image} />
       <TouchableOpacity onPress={() => navigation.goBack()} style={styles.icon}>
         {/* <Text>Go Back</Text> */}

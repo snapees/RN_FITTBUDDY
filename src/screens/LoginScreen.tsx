@@ -9,7 +9,7 @@ function LoginScreen() {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const authCtx = useContext(AuthContext);
 
-  async function loginHandler({email, password}) {
+  async function loginHandler({email, password}: any) {
     setIsAuthenticating(true);
     try {
       const token = await login(email, password);

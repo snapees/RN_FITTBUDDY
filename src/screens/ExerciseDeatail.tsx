@@ -16,14 +16,14 @@ import {
 } from 'react-native-responsive-screen';
 import Anticons from 'react-native-vector-icons/AntDesign';
 
-export default function ExerciseDeatail({route}) {
+export default function ExerciseDeatail({route}: any) {
   const {item} = route.params;
   const navigation = useNavigation();
   // console.log(item);
   return (
     <View style={styles.container}>
       {/* className="flex flex-1 mt-10"> */}
-      <StatusBar style="dark" />
+      <StatusBar barStyle={'light-content'} />
       <View
         style={styles.imageContainer}
         className="shadow-md bg-neutral-200 rounded-b-[40px]">
@@ -62,18 +62,25 @@ export default function ExerciseDeatail({route}) {
         {/* instructions */}
         <Text style={styles.instructionContainer}>Instructions</Text>
 
-        {item.instructions.map((instruction, index) => {
-          const splitInstructions = instruction.split(',');
-          return (
-            <View key={index}>
-              {splitInstructions.map((splitInstruction, splitIndex) => (
-                <Text key={splitIndex} style={styles.instruction}>
-                  {splitInstruction.trim()}
-                </Text>
-              ))}
-            </View>
-          );
-        })}
+        {item.instructions.map(
+          (instruction: string, index: React.Key | null | undefined) => {
+            const splitInstructions = instruction.split(',');
+            return (
+              <View key={index}>
+                {splitInstructions.map(
+                  (
+                    splitInstruction: string,
+                    splitIndex: React.Key | null | undefined,
+                  ) => (
+                    <Text key={splitIndex} style={styles.instruction}>
+                      {splitInstruction.trim()}
+                    </Text>
+                  ),
+                )}
+              </View>
+            );
+          },
+        )}
       </ScrollView>
     </View>
   );

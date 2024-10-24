@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
 import {
   FlatList,
@@ -14,12 +15,10 @@ import {
 } from 'react-native-responsive-screen';
 import {useNavigation} from '@react-navigation/native';
 
-export default function ExerciseList({data}) {
+export default function ExerciseList({data}: any) {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      {/* <Text style={styles.textContainer}>Exercises</Text> */}
-
       <FlatList
         data={data}
         numColumns={2}
@@ -35,7 +34,7 @@ export default function ExerciseList({data}) {
   );
 }
 
-const ExerciseCard = ({index, item, navigation}) => {
+const ExerciseCard = ({index, item, navigation}: any) => {
   // console.log(item);
   return (
     <View>
