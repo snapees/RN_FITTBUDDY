@@ -47,6 +47,8 @@ export default function ImageSlider() {
 
 const styles = StyleSheet.create({
   container: {
-    height: 200,
+    height: 350,
+    marginTop: -50,
+    marginHorizontal: 10,
   },
 });
