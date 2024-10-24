@@ -9,6 +9,7 @@ import {
 } from 'react-native-responsive-screen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ImageSlider from '../components/UI/ImageSlider';
+import BodyParts from '../components/UI/BodyParts';
 
 export default function WelcomeScreen() {
   const {colorScheme} = useTheme();
@@ -41,8 +42,13 @@ export default function WelcomeScreen() {
       </View>
 
       {/* image slider */}
-      <View>
+      <View style={styles.slider}>
         <ImageSlider />
+      </View>
+
+      {/* body parts */}
+      <View style={styles.bodyParts}>
+        <BodyParts />
       </View>
     </SafeAreaView>
   );
@@ -59,7 +65,7 @@ const getStyles = (colorScheme: ColorSchemeName) =>
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignContent: 'center',
-      marginHorizontal: 5,
+      // marginHorizontal: 5,
     },
     textLine: {
       margin: 20,
@@ -95,5 +101,12 @@ const getStyles = (colorScheme: ColorSchemeName) =>
       position: 'absolute',
       right: 28,
       bottom: 15,
+    },
+    slider: {
+      height: 225,
+    },
+    bodyParts: {
+      flex: 1,
+      // marginTop: 0,
     },
   });
