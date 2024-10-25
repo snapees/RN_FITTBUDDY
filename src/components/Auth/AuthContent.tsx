@@ -105,7 +105,9 @@ function AuthContent({isLogin, onAuthenticate}: AuthContentProps) {
           />
           <View style={styles.buttons}>
             <FlatButton onPress={switchAuthModeHandler}>
-              {isLogin ? 'Create a new user' : 'Log in instead'}
+              <Text style={styles.btnText}>
+                {isLogin ? 'Create a new user' : 'Log in instead'}
+              </Text>
             </FlatButton>
           </View>
         </View>
@@ -149,6 +151,10 @@ const getStyles = (colorScheme: ColorSchemeName) => {
     },
     buttons: {
       marginTop: 8,
+    },
+    btnText: {
+      fontSize: 18,
+      color: '#fff',
     },
   });
 };
