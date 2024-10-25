@@ -16,20 +16,24 @@ import {
 } from 'react-native-responsive-screen';
 import Anticons from 'react-native-vector-icons/AntDesign';
 
-export default function ExerciseDeatail({route}) {
+export default function ExerciseDeatail({route}: any) {
   const {item} = route.params;
   const navigation = useNavigation();
   // console.log(item);
   return (
     <View style={styles.container}>
       {/* className="flex flex-1 mt-10"> */}
-      <StatusBar style="dark" />
+      <StatusBar barStyle={'light-content'} />
       <View
         style={styles.imageContainer}
-        className="shadow-md bg-neutral-200 rounded-b-[40px]">
+        // className="shadow-md bg-neutral-200 rounded-b-[40px]"
+      >
         <Image
           source={{uri: item.gifUrl}}
-          contentFit="cover"
+          // source={{
+          //   uri: 'https://upload.wikimedia.org/wikipedia/commons/2/2c/Rotating_earth_%28large%29.gif',
+          // }}
+          // contentFit="cover"
           // style={{width: wp(100), height: wp(100)}}
           // className="rounded-[40px]"
           style={styles.image}
@@ -62,18 +66,25 @@ export default function ExerciseDeatail({route}) {
         {/* instructions */}
         <Text style={styles.instructionContainer}>Instructions</Text>
 
-        {item.instructions.map((instruction, index) => {
-          const splitInstructions = instruction.split(',');
-          return (
-            <View key={index}>
-              {splitInstructions.map((splitInstruction, splitIndex) => (
-                <Text key={splitIndex} style={styles.instruction}>
-                  {splitInstruction.trim()}
-                </Text>
-              ))}
-            </View>
-          );
-        })}
+        {item.instructions.map(
+          (instruction: string, index: React.Key | null | undefined) => {
+            const splitInstructions = instruction.split(',');
+            return (
+              <View key={index}>
+                {splitInstructions.map(
+                  (
+                    splitInstruction: string,
+                    splitIndex: React.Key | null | undefined,
+                  ) => (
+                    <Text key={splitIndex} style={styles.instruction}>
+                      {splitInstruction.trim()}
+                    </Text>
+                  ),
+                )}
+              </View>
+            );
+          },
+        )}
       </ScrollView>
     </View>
   );
@@ -102,6 +113,7 @@ const styles = StyleSheet.create({
     width: wp(100),
     height: wp(100),
     borderRadius: 40,
+    resizeMode: 'cover',
   },
   icon: {
     marginHorizontal: 2,
